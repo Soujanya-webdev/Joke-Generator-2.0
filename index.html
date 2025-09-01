@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mood-Based Joke Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #8360c3, #2ebf91);
+      color: #fff;
+      text-align: center;
+      padding: 50px;
+    }
+    .container {
+      background: rgba(0,0,0,0.4);
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    input, select, button {
+      padding: 10px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    button {
+      cursor: pointer;
+      background: #ff9800;
+      color: #fff;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #e68900;
+    }
+    #jokeBox {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      background: #ffffff22;
+      padding: 15px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>😂 Mood-Based Joke Generator</h1>
+    <input type="text" id="name" placeholder="Enter your name" />
+    <select id="mood">
+      <option value="happy">Happy</option>
+      <option value="sad">Sad</option>
+      <option value="angry">Angry</option>
+      <option value="random">Random</option>
+    </select>
+    <br>
+    <button onclick="getJoke()">Get Joke</button>
+    <button onclick="newJoke()">New Joke</button>
+
+    <div id="jokeBox">Your joke will appear here 😄</div>
+  </div>
+
+  <script>
+    const jokes = {
+      happy: [
+        "Why don’t scientists trust atoms? Because they make up everything!",
+        "Why did the scarecrow win an award? Because he was outstanding in his field!",
+        "What’s a skeleton’s least favorite room? The living room.",
+        "Why do cows wear bells? Because their horns don’t work!",
+        "What do you call fake spaghetti? An impasta!"
+      ],
+      sad: [
+        "Why did the math book look sad? Because it had too many problems.",
+        "Parallel lines have so much in common… it’s a shame they’ll never meet.",
+        "Why don’t graveyards ever get overcrowded? Because people are dying to get in.",
+        "I told my computer I needed a break, and it said: 'No problem, I’ll go to sleep.'",
+        "Why was the broom late? It swept in!"
+      ],
+      angry: [
+        "Why did the keyboard break up with the computer? Too many arguments!",
+        "Why was the belt arrested? For holding up a pair of pants!",
+        "Why did the tomato turn red? Because it saw the salad dressing!",
+        "Why did the golfer bring two pairs of pants? In case he got a hole in one.",
+        "Why did the chicken join a band? Because it had the drumsticks!"
+      ],
+      random: [
+        "Why don’t oysters donate to charity? Because they are shellfish.",
+        "What do you call cheese that isn’t yours? Nacho cheese!",
+        "Why was the math teacher suspicious of prime numbers? They were acting odd.",
+        "What’s brown and sticky? A stick.",
+        "Why did the bicycle fall over? Because it was two-tired!"
+      ]
+    };
+
+    let currentMood = "";
+    let jokeIndex = 0;
+
+    function getJoke() {
+      const name = document.getElementById("name").value || "Friend";
+      const mood = document.getElementById("mood").value;
+      currentMood = mood;
+      jokeIndex = 0;
+      const moodJokes = jokes[mood] || jokes.random;
+      document.getElementById("jokeBox").innerText =
+        `${name}, here’s a ${mood} joke: \n\n${moodJokes[jokeIndex]}`;
+    }
+
+    function newJoke() {
+      if (!currentMood) {
+        document.getElementById("jokeBox").innerText = "Please click 'Get Joke' first!";
+        return;
+      }
+      const moodJokes = jokes[currentMood] || jokes.random;
+      jokeIndex = Math.floor(Math.random() * moodJokes.length);
+      document.getElementById("jokeBox").innerText =
+        `Another ${currentMood} joke: \n\n${moodJokes[jokeIndex]}`;
+    }
+  </script>
+</body>
+</html>
